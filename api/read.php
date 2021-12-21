@@ -35,7 +35,7 @@
         //covert to JSON and output
         echo json_encode($post_arr);
     } else {
-
+        echo json_encode(array('message' => 'No posts found'));
     }
 
 
