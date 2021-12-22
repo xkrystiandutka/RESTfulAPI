@@ -42,6 +42,26 @@ class Post{
 
                 return $stmt;
             }
+
+        public function read_single(){
+            $query = 'SELECT
+            c.name as categpry_name,
+            p.id,
+            p.category_id,
+            p.title,
+            p.body,
+            p.author,
+            p.created_at
+            FROM
+            ' .$this ->table . 'p
+            LEFT JOIN
+                categories c ON p.cateogry_id = c.id
+                WHERE p.id = ? LIMIT = 1';
+
+                //prepare statement
+            $stmt = $this -> conn -> prepare($query);
+            $row = $stmt -> fetch(PDO::FETCH_ASSOC);
+        }
 }
 
 ?>
