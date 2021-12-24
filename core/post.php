@@ -85,8 +85,48 @@ class Post{
             $this -> body = htmlspecialchars(strip_tags($this -> body));
             $this -> author = htmlspecialchars(strip_tags($this -> author));
             $this -> category_id = htmlspecialchars(strip_tags($this -> category_id));
+            //blinding of parameters
+            $stmt -> blindParam(':title', $this -> title);
+            $stmt -> blindParam(':body', $this -> body);
+            $stmt -> blindParam(':author', $this -> author);
+            $stmt -> blindParam(':category_id', $this -> category_id);
+            //exectude the query
+            if($stmt -> execute()){
+                return true;
+            }
+            //printf error if something goes wrong
+            printf("Errors %s. \n", $stmt -> error);
+            return false;
         }
 
+        //update post function
+        public function update(){
+            //create query
+            $query =  'UPDATE' . $this -> table . '
+            SET title =: title, body = :body, author = :author, category_id= :category_id
+            WHERE id = :id';
+            //preapare statement
+            $stmt = $this -> conn -> preapare($query);
+            //clean data
+            $this -> title = htmlspecialchars(strip_tags($this -> title));
+            $this -> body = htmlspecialchars(strip_tags($this -> body));
+            $this -> author = htmlspecialchars(strip_tags($this -> author));
+            $this -> category_id = htmlspecialchars(strip_tags($this -> category_id));
+            $this -> id = htmlspecialchars(strip_tags($this -> id));
+            //blinding of parameters
+            $stmt -> blindParam(':title', $this -> title);
+            $stmt -> blindParam(':body', $this -> body);
+            $stmt -> blindParam(':author', $this -> author);
+            $stmt -> blindParam(':category_id', $this -> category_id);
+            $stmt -> blindParam(':id', $this -> id);
+            //exectude the query
+            if($stmt -> execute()){
+                return true;
+            }
+            //printf error if something goes wrong
+            printf("Errors %s. \n", $stmt -> error);
+            return false;
+        }
 
 }
 
