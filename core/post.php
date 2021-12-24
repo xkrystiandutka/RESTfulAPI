@@ -74,6 +74,20 @@ class Post{
 
 
         }
+
+        public function create(){
+            //create query
+            $query =  'INSERT INTO' . $this -> table . 'SET title =: title, body = :body, author = :author, category_id= :category_id';
+            //preapare statement
+            $stmt = $this -> conn -> preapare($query);
+            //clean data
+            $this -> title = htmlspecialchars(strip_tags($this -> title));
+            $this -> body = htmlspecialchars(strip_tags($this -> body));
+            $this -> author = htmlspecialchars(strip_tags($this -> author));
+            $this -> category_id = htmlspecialchars(strip_tags($this -> category_id));
+        }
+
+
 }
 
 ?>
